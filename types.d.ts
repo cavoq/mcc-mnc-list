@@ -21,7 +21,7 @@ export declare const filter: (filters?: {
     statusCode?: string
 }) => Operator[];
 
-export declare const find: (filters? : {
+export declare const find: (filters?: {
     countryCode?: string
     mcc?: string
     mnc?: string
@@ -31,4 +31,4 @@ export declare const find: (filters? : {
 
 export declare const statusCodes: () => string[];
 
-export {};
+export { };
