@@ -1,5 +1,6 @@
 [
   "Allocated",
+  "Building Network",
   "Implement / Design",
   "Not operational",
   "Ongoing",
@@ -10,6 +11,7 @@
   "Temporary operational",
   "Test Network",
   "Testing",
+  "UNKNOWN",
   "Unknown",
   "Upcoming"
 ]
