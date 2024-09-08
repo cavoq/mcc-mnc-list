@@ -55,58 +55,24 @@ function collect(resolve, from, records, statusCodes, globals) {
 
     const children = content.childNodes;
     let recordType,
-      sectionName,
-      countryName = null,
-      countryCode = null;
+      countryInfo = { name: null, code: null };
 
     nodeList: for (let i = 0; i < children.length; i++) {
       let node = children[i];
 
-      if (!node.textContent.trim().length) {
-        // skip empty lines
+      if (!node.textContent.trim()) {
         continue;
       }
 
-      if (node.nodeName === "H2") {
-        recordType = "other";
-        sectionName = node.querySelector(".mw-headline").textContent.trim();
-
-        if (
-          sectionName === "See also" ||
-          sectionName === "External links" ||
-          sectionName === "National MNC Authorities"
-        ) {
-          break nodeList;
+      if (node.nodeName === "DIV") {
+        switch (node.classList.value) {
+          case "mw-heading mw-heading2":
+            recordType = getRecordType(node);
+            break;
+          case "mw-heading mw-heading4":
+            countryInfo = getCountryInfo(node);
+            break;
         }
-
-        if (sectionName === "National operators") {
-          recordType = "National";
-        }
-
-        if (sectionName.length === 1) {
-          continue;
-        }
-
-        if (sectionName === "Test networks") {
-          recordType = "Test";
-        }
-
-        if (sectionName === "International operators") {
-          recordType = "International";
-        }
-
-        if (recordType === "other") {
-          //  console.log('WARN recordType is other', node.textContent);
-        }
-      }
-
-      if (node.nodeName === "H4") {
-        let countryText = node
-          .querySelector(".mw-headline")
-          .textContent.trim();
-        let dashPos = countryText.indexOf("–");
-        countryName = countryText.substr(0, dashPos - 1);
-        countryCode = countryText.substr(dashPos + 2);
       }
 
       if (node.nodeName === "TABLE") {
@@ -151,8 +117,8 @@ function collect(resolve, from, records, statusCodes, globals) {
 
           records.push({
             type: recordType,
-            countryName: countryName,
-            countryCode: countryCode,
+            countryName: countryInfo.name,
+            countryCode: countryInfo.code,
             mcc: cleanup(cols[0].textContent),
             mnc: cleanup(cols[1].textContent),
             brand: cleanup(cols[2].textContent),
@@ -194,6 +160,57 @@ function writeData(records, statusCodes) {
       console.log("Status codes saved to " + STATUS_CODES_OUTPUT_FILE);
     }
   );
+}
+
+function getRecordType(node) {
+  const recordTypeMap = {
+    "National operators": "National",
+    "Test networks": "Test",
+    "International operators": "International",
+  };
+
+  const h2Node = Array.from(node.childNodes).find(
+    (child) => child.nodeName === "H2"
+  );
+
+  if (h2Node) {
+    const sectionName = h2Node.textContent.trim();
+
+    if (sectionName.length > 1) {
+      if (
+        sectionName === "See also" ||
+        sectionName === "External links" ||
+        sectionName === "National MNC Authorities"
+      ) {
+        return null;
+      }
+
+      return recordTypeMap[sectionName] || "other";
+    }
+  }
+
+  return "other";
+}
+
+function getCountryInfo(node) {
+  const h4Node = Array.from(node.childNodes).find(
+    (child) => child.nodeName === "H4"
+  );
+
+  let countryName = null;
+  let countryCode = null;
+
+  if (h4Node) {
+    const countryText = h4Node.textContent.trim();
+    const dashPos = countryText.indexOf("–");
+
+    if (dashPos !== -1) {
+      countryName = countryText.substring(0, dashPos).trim();
+      countryCode = countryText.substring(dashPos + 1).trim();
+    }
+  }
+
+  return { name: countryName, code: countryCode };
 }
 
 function removeCiteReferences(nodes) {
