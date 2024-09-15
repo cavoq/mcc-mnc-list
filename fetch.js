@@ -57,7 +57,7 @@ function collect(resolve, from, records, statusCodes, globals) {
     let recordType,
       countryInfo = { name: null, code: null };
 
-    nodeList: for (let i = 0; i < children.length; i++) {
+    for (let i = 0; i < children.length; i++) {
       let node = children[i];
 
       if (!node.textContent.trim()) {
