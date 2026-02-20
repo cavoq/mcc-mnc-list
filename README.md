@@ -27,6 +27,28 @@ A mobile country code (MCC) is used in combination with a mobile network code (M
 $ npm install mcc-mnc-list
 ```
 
+## Docker
+
+Build the image:
+
+```bash
+docker build -t mcc-mnc-list .
+```
+
+Run the fetch job in Docker:
+
+```bash
+docker run --name mcc-mnc-list-fetch mcc-mnc-list
+```
+
+Copy generated files to your host, then remove the container:
+
+```bash
+docker cp mcc-mnc-list-fetch:/mnc-mcc-list/mcc-mnc-list.json ./mcc-mnc-list.json
+docker cp mcc-mnc-list-fetch:/mnc-mcc-list/status-codes.json ./status-codes.json
+docker rm mcc-mnc-list-fetch
+```
+
 ## Data
 
 ### `mcc-mnc-list.json`
