@@ -157,4 +157,4 @@ console.log(mcc_mnc_list.filter({ mccmnc: '21630' }));
 
 ## 📄 License
 
-**@cavoq/mcc-mnc-list** is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.
+**mcc-mnc-list** is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.
