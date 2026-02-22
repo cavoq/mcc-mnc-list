@@ -1,4 +1,4 @@
-# @cavoq/mcc-mnc-list
+# mcc-mnc-list
 
 [![CI](https://github.com/cavoq/mcc-mnc-list/actions/workflows/release.yml/badge.svg)](https://github.com/cavoq/mcc-mnc-list/actions/workflows/release.yml)
 [![npm version](https://img.shields.io/npm/v/%40cavoq%2Fmcc-mnc-list.svg)](https://www.npmjs.com/package/@cavoq/mcc-mnc-list)
