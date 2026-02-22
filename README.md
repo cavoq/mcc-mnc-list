@@ -1,8 +1,11 @@
-# mcc-mnc-list
+# @cavoq/mcc-mnc-list
 
-[![npm](https://img.shields.io/npm/v/mcc-mnc-list.svg)](https://www.npmjs.com/package/mcc-mnc-list)
+[![CI](https://github.com/cavoq/mcc-mnc-list/actions/workflows/release.yml/badge.svg)](https://github.com/cavoq/mcc-mnc-list/actions/workflows/release.yml)
+[![npm version](https://img.shields.io/npm/v/%40cavoq%2Fmcc-mnc-list.svg)](https://www.npmjs.com/package/@cavoq/mcc-mnc-list)
 
-### List of MCC and MNC codes from up-to-date Wikipedia page
+### 🌍 List of MCC and MNC codes from the up-to-date Wikipedia page
+
+Maintained fork of the original `mcc-mnc-list` package.
 
 Source: https://en.wikipedia.org/wiki/Mobile_country_code
 
@@ -21,13 +24,13 @@ The ITU-T Recommendation E.212 defines mobile country codes as well as mobile ne
 
 A mobile country code (MCC) is used in combination with a mobile network code (MNC) (also known as a "MCC / MNC tuple") to uniquely identify a mobile network operator (carrier) using the GSM (including GSM-R), UMTS, and LTE public land mobile networks. (*source: Wikipedia*)
 
-## Install
+## 📦 Install
 
 ```
-$ npm install mcc-mnc-list
+$ npm install @cavoq/mcc-mnc-list
 ```
 
-## Docker
+## 🐳 Docker
 
 Build the image:
 
@@ -49,7 +52,7 @@ docker cp mcc-mnc-list-fetch:/mnc-mcc-list/status-codes.json ./status-codes.json
 docker rm mcc-mnc-list-fetch
 ```
 
-## Data
+## 🗂️ Data
 
 ### `mcc-mnc-list.json`
 
@@ -79,7 +82,7 @@ List ( `Array` ) of all the different Status Codes from MCC/MNC list.
 
 
 
-## Usage
+## 🚀 Usage
 
 ## `.all()` : Array
 
@@ -122,11 +125,11 @@ Returns the value of the first record in the array that satisfies the provided f
 Filters are identical to the filters described in ``.filter(filters)``.
 
 
-## Example
+## 🧪 Example
 
 ```js
 
-const mcc_mnc_list = require('mcc-mnc-list');
+const mcc_mnc_list = require('@cavoq/mcc-mnc-list');
 
 let records = mcc_mnc_list.all();
 let statusCodes = mcc_mnc_list.statusCodes();
@@ -152,6 +155,6 @@ console.log(mcc_mnc_list.filter({ mccmnc: '21630' }));
 // }]
 ```
 
-## License
+## 📄 License
 
-**mcc-mnc-list** is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.
+**@cavoq/mcc-mnc-list** is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.
