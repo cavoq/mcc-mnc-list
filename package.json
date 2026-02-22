@@ -9,14 +9,16 @@
     "fetch": "node fetch.js"
   },
   "author": "David Stromberger",
-  "contributors": ["Peter Bakondy"],
+  "contributors": [
+    "Peter Bakondy"
+  ],
   "license": "MIT",
   "dependencies": {
     "jsdom": "^28.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "ava": "^6.4.1",
+    "ava": "^5.3.1",
     "eslint": "^10.0.1",
     "globals": "^17.3.0"
   },
