@@ -16,13 +16,13 @@ function filter(filters) {
     return records;
   }
 
-  if (typeof filters !== "object") {
+  if (typeof filters !== "object" || Array.isArray(filters)) {
     throw new TypeError("Invalid parameter (object expected)");
   }
 
   let statusCode, mcc, mnc, countryCode;
 
-  if (filters.statusCode) {
+  if (filters.statusCode !== undefined) {
     statusCode = filters.statusCode;
     if (statusCodeList.indexOf(statusCode) === -1) {
       throw new TypeError(
@@ -31,7 +31,7 @@ function filter(filters) {
     }
   }
 
-  if (filters.mccmnc) {
+  if (filters.mccmnc !== undefined) {
     let mccmnc;
     if (
       typeof filters.mccmnc === "string" ||
@@ -41,18 +41,18 @@ function filter(filters) {
     } else {
       throw new TypeError("Invalid mccmnc parameter (string expected)");
     }
-    mcc = mccmnc.substr(0, 3);
-    mnc = mccmnc.substr(3);
+    mcc = mccmnc.slice(0, 3);
+    mnc = mccmnc.slice(3);
   }
 
-  if (filters.mcc && mcc) {
+  if (filters.mcc !== undefined && filters.mccmnc !== undefined) {
     throw new TypeError("Don't use mccmnc and mcc parameter at once");
   }
-  if (filters.mnc && mnc) {
+  if (filters.mnc !== undefined && filters.mccmnc !== undefined) {
     throw new TypeError("Don't use mccmnc and mnc parameter at once");
   }
 
-  if (filters.mcc) {
+  if (filters.mcc !== undefined) {
     if (typeof filters.mcc === "string" || typeof filters.mcc === "number") {
       mcc = String(filters.mcc);
     } else {
@@ -60,7 +60,7 @@ function filter(filters) {
     }
   }
 
-  if (filters.mnc) {
+  if (filters.mnc !== undefined) {
     if (typeof filters.mnc === "string" || typeof filters.mnc === "number") {
       mnc = String(filters.mnc);
     } else {
@@ -78,16 +78,16 @@ function filter(filters) {
 
   let result = records;
 
-  if (statusCode) {
+  if (statusCode !== undefined) {
     result = result.filter((record) => record["status"] === statusCode);
   }
-  if (countryCode) {
+  if (countryCode !== undefined) {
     result = result.filter((record) => record["countryCode"] === countryCode);
   }
-  if (mcc) {
+  if (mcc !== undefined) {
     result = result.filter((record) => record["mcc"] === mcc);
   }
-  if (mnc) {
+  if (mnc !== undefined) {
     result = result.filter((record) => record["mnc"] === mnc);
   }
 
@@ -95,7 +95,7 @@ function filter(filters) {
 }
 
 function find(filters) {
-  // return the first element of undefined, as filter will always return an array
+  // return the first element or undefined, as filter will always return an array
   return filter(filters)[0];
 }
 

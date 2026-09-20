@@ -6,7 +6,7 @@ module.exports = [
   {
     files: ["**/*.js"],
     languageOptions: {
-      ecmaVersion: 8,
+      ecmaVersion: "latest",
       sourceType: "commonjs",
       globals: Object.assign({}, globals.node),
     },

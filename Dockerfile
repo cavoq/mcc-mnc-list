@@ -1,4 +1,4 @@
-FROM node:22-bookworm-slim
+FROM node:24-bookworm-slim
 
 ENV NODE_ENV=production \
     NPM_CONFIG_AUDIT=false \
@@ -7,13 +7,13 @@ ENV NODE_ENV=production \
 
 WORKDIR /mnc-mcc-list
 
-COPY package*.json ./
+RUN npm install --global pnpm@10.34.5
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
 
-# `fetch.js` requires `jsdom`, which currently lives in devDependencies.
-RUN npm install --include=dev --omit=optional && npm cache clean --force
-
-COPY --chown=node:node . .
-
+COPY --chown=node:node fetch.js mcc-mnc-list.json status-codes.json ./
+# The updater writes temporary files in its working directory.
+RUN chown node:node /mnc-mcc-list
 USER node
 
 CMD ["node", "fetch.js"]

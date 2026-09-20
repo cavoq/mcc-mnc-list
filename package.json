@@ -1,12 +1,14 @@
 {
   "name": "@cavoq/mcc-mnc-list",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "List of MCC and MNC codes from up-to-date Wikipedia page",
   "main": "index.js",
   "types": "types.d.ts",
   "scripts": {
     "test": "eslint . && ava",
-    "fetch": "node fetch.js"
+    "fetch": "node fetch.js",
+    "lint": "eslint .",
+    "prepublishOnly": "pnpm test"
   },
   "author": "David Stromberger",
   "contributors": [
@@ -14,13 +16,13 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "jsdom": "^28.1.0"
+    "jsdom": "^30.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "ava": "^5.3.1",
-    "eslint": "^10.0.1",
-    "globals": "^17.3.0"
+    "ava": "^8.0.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0"
   },
   "keywords": [
     "mcc",
@@ -32,10 +34,25 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cavoq/mcc-mnc-list.git"
+    "url": "git+https://github.com/cavoq/mcc-mnc-list.git"
   },
   "bugs": {
     "url": "https://github.com/cavoq/mcc-mnc-list/issues"
   },
-  "homepage": "https://github.com/cavoq/mcc-mnc-list#readme"
+  "homepage": "https://github.com/cavoq/mcc-mnc-list#readme",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "files": [
+    "index.js",
+    "types.d.ts",
+    "fetch.js",
+    "mcc-mnc-list.json",
+    "status-codes.json",
+    "CHANGELOG.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
