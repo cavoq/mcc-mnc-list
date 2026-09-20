@@ -1,25 +1,20 @@
 # Publishing to npm
 
-The publish workflow runs when a `v*` tag is pushed. The tag must match the
+The release workflow runs when a `v*` tag is pushed. The tag must match the
 version in `package.json`, and CI must pass before publishing.
 
 ## Authentication
 
-For the first publication of `@cavoq/mcc-mnc-list`, add an npm token with write
-access to the `@cavoq` scope and permission to bypass 2FA as the repository
-Actions secret `NPM_TOKEN`.
-
-Once the package exists, configure npm trusted publishing in its npm settings:
+Configure npm trusted publishing in the package settings:
 
 - Provider: GitHub Actions
 - Organization or user: `cavoq`
 - Repository: `mcc-mnc-list`
-- Workflow: `publish.yml`
+- Workflow: `release.yml`
 - Environment: leave blank
 - Allowed actions: enable `npm publish`
 
-The token can then be removed. The workflow supports both trusted publishing
-and token authentication.
+The workflow uses OIDC trusted publishing and does not use an npm token.
 
 ## Version tags
 
